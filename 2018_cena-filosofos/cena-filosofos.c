@@ -70,6 +70,7 @@ int main() {
         }
     }
 
+    printf("\n");
     for(i=0; i<thread_num; i++)
         printf("Philosopher %d ate %d meals.\n", i, numMeals[i]);
 
@@ -99,7 +100,7 @@ void *philosopher(void *arg) {
                 if(chopstick[right]) {
                     chopstick[right] = 0;
                     pthread_mutex_unlock(&m[right]);
-                    printf("\nPhilosopher %d: I got two chopsticks!\n", left);
+                    printf("Philosopher %d: I got two chopsticks!\n", left);
 
                     pthread_mutex_lock(&mealCountMutex);
                     if(mealCount < max_meals) {
@@ -107,11 +108,10 @@ void *philosopher(void *arg) {
                         pthread_mutex_unlock(&mealCountMutex);
 
                         numMeals[left]++;
-                        printf("philosopher %d: I am eating!\n\n", left);
-                        sleep(rand() % 3 + 1); // comer un tiempo
+                        printf("philosopher %d: I am eating!\n", left);
+                        sleep(rand() % 5 + 1); // comer un tiempo
                     } else {
                         pthread_mutex_unlock(&mealCountMutex);
-                        printf("Philosopher %d: I got both chopsticks, but no meals are left\n\n", left);
                     }
 
                     pthread_mutex_lock(&m[right]);
@@ -127,9 +127,9 @@ void *philosopher(void *arg) {
                 pthread_mutex_unlock(&m[left]);
             } else {
                 pthread_mutex_unlock(&m[left]);
-                printf("Philosopher %d: I cannot even get the left chopstick\n", left);
+                printf("Philosopher %d: I cannot even get the left chopstick!\n", left);
             }
-            sleep(rand() % 3 + 1); // pensar entre 1 y 3 segundos
+            sleep(rand() % 5 + 1); // pensar entre 1 y 3 segundos
             
         } else {
             pthread_mutex_unlock(&mealCountMutex);
