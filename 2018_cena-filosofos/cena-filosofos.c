@@ -129,7 +129,7 @@ void *philosopher(void *arg) {
                 pthread_mutex_unlock(&m[left]);
                 printf("Philosopher %d: I cannot even get the left chopstick!\n", left);
             }
-            sleep(rand() % 5 + 1); // pensar entre 1 y 3 segundos
+            sleep(rand() % 5 + 1); // pensar entre 1 y 5 segundos
             
         } else {
             pthread_mutex_unlock(&mealCountMutex);
